@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Links Generator</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+    <script>
+        
+        const dataArray = ["syllabus.html", "p1.html", "p2.html", "style.html", "email.html", "system.html", "process.html",];
+
+        
+        function main() {
+            document.getElementById('rangeInfo').innerText = `Valid Range: 1-${dataArray.length}`;
+        }
+
+        
+        function displayTable() {
+            
+            let startRange = parseInt(document.getElementById('startRange').value);
+            let endRange = parseInt(document.getElementById('endRange').value);
+
+            
+            if (isNaN(startRange) || isNaN(endRange) || startRange < 1 || endRange > dataArray.length || startRange > endRange) {
+                document.getElementById('rangeInfo').innerText = `Invalid range, valid range: 1-${dataArray.length}`;
+                return;
+            }
+
+            
+            let tableHTML = '<table><tr><th>Links</th></tr>';
+            for (let i = startRange - 1; i < endRange; i++) {
+                tableHTML += `<tr><td><a href="${dataArray[i]}">${dataArray[i]}</a></td></tr>`;
+            }
+            tableHTML += '</table>';
+
+            
+            document.getElementById('tableContainer').innerHTML = tableHTML;
+        }
+    </script>
+</head>
+<body onload="main()">
+    <h1>Links Generator</h1>
+    <form onsubmit="displayTable(); return false;">
+        <label for="startRange">Start Range :</label>
+        <input type="number" id="startRange" name="startRange" value="1" min="1" max="7">
+        
+        <label for="endRange">End Range :</label>
+        <input type="number" id="endRange" name="endRange" value="1" min="1" max="7">
+        <br>
+        <button type="submit">display Table</button>
+    </form>
+    <p id="rangeInfo"></p>
+    <div id="tableContainer"></div>
+</body>
+</html>
